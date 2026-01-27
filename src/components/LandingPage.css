@@ -1,0 +1,87 @@
+:root {
+  --primary-color: #1A2A44; /* Navy blue */
+  --secondary-color: #6c757d;
+  --section-bg-color: #2A4066; /* Medium-dark blue for sections */
+}
+
+.navbar {
+  background-color: transparent !important;
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar.scrolled {
+  background-color: rgba(26, 42, 68, 0.9) !important;
+}
+
+.navbar-brand span {
+  color: var(--primary-color);
+}
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: #1A2A44; /* Navy blue background */
+}
+
+.hero-content-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
+.feature-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(26, 42, 68, 0.3) !important;
+}
+
+.contact-section,
+#about,
+#Features,
+footer {
+  background-color: var(--section-bg-color);
+  padding: 80px 0;
+}
+
+.contact-item {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.contact-item i {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.contact-item:hover {
+  transform: translateY(-8px);
+  background: rgba(26, 42, 68, 0.2);
+}
+
+footer {
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  .hero-section .lead {
+    font-size: 1.1rem;
+  }
+}
