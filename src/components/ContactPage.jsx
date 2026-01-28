@@ -304,16 +304,16 @@ const ContactPage = () => {
 
       {/* SOCIAL MEDIA LINKS */}
       <div className="social-links">
-        <a href="https://www.instagram.com/vivante_air/" target="_blank">
+        <a href="https://www.instagram.com/vivante_air/" target="_blank" rel="noreferrer">
           <i className="fa-brands fa-instagram"></i>
         </a>
-        <a href="https://twitter.com" target="_blank">
+        <a href="https://twitter.com" target="_blank" rel="noreferrer">
           <i className="fa-brands fa-x-twitter"></i>
         </a>
-        <a href="https://facebook.com" target="_blank">
+        <a href="https://facebook.com" target="_blank" rel="noreferrer">
           <i className="fa-brands fa-facebook"></i>
         </a>
-        <a href="https://wa.me/0758007505" target="_blank">
+        <a href="https://wa.me/0758007505" target="_blank" rel="noreferrer">
           <i className="fa-brands fa-whatsapp"></i>
         </a>
 
