@@ -327,7 +327,7 @@ const LandingPage = () => {
                 data-aos="fade-right"
                 style={{ color: "var(--primary-color)" }}
               >
-                About Vivante
+                Vivante Air Charters
               </h2>
               <p
                 className="lead mb-4"
@@ -335,14 +335,14 @@ const LandingPage = () => {
                 data-aos-delay="200"
                 style={{ color: "var(--text-color)" }}
               >
-                At Air Vivante, we make private air travel simple, personal, and accessible.
+                At Vivante Air Charters, we make private air travel simple, personal, and accessible.
                 Our mission is to bridge exclusivity and practicality, offering premium charters
                 for both seasoned and first-time flyers who value comfort, safety, and time.
                 We offer exclusive charter services ranging from helicopter transfers to regional
                 jet flights, light aircrafts for those short bush hops, group air charters and
                 air ambulance services when that minute matters. Every trip is tailored to your
                 needs, built on transparency, reliability, and thoughtful service.
-                Air Vivante is redefining what it means to fly private where luxury feels
+                Vivante Air Charters is redefining what it means to fly private where luxury feels
                 effortless, and every journey begins with trust and is refined with precision.
               </p>
             </div>

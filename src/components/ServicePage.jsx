@@ -150,11 +150,7 @@ const ServicePage = () => {
                   </div>
                   <h3>{service.title}</h3>
                   <p>{service.desc}</p>
-                  <div className="mt-4">
-                    <Link to="/contact" className="btn-modern">
-                      Book This Service
-                    </Link>
-                  </div>
+
                 </div>
               </div>
             ))}
