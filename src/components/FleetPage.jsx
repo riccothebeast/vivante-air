@@ -169,13 +169,13 @@ const fleet = [
     range: "4,350 nm",
     speed: "Mach 0.85",
     status: "Available",
-  }
+  },
 ];
 
 
 export default function FleetPage() {
   useEffect(() => {
-    AOS.init({ duration: 300, easing: "ease-out-cubic", once: true, offset: 30 });
+    AOS.init({ duration: 800, easing: "ease-out-cubic", once: true, offset: 50 }); // Optimized AOS
   }, []);
 
   return (
@@ -186,27 +186,51 @@ export default function FleetPage() {
         muted
         loop
         playsInline
-        style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: -2 }}
+        className="fleet-video-bg"
       >
         <source src="/video 3.mp4" type="video/mp4" />
       </video>
       <div
-  style={{
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "transparent",
-    zIndex: -1,
-  }}
-/>
+        className="fleet-video-overlay"
+      />
 
 
       <style jsx>{`
         :root {
           --primary: #1A2A44;
           --accent: #00d4ff;
+        }
+        
+        /* Mobile background optimization */
+        .fleet-video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        
+        .fleet-video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: -1;
+        }
+
+        /* Hide video on mobile and use a solid background or gradient */
+        @media (max-width: 768px) {
+            .fleet-video-bg {
+                display: none;
+            }
+            .fleet-video-overlay {
+                background: linear-gradient(to bottom, #1A2A44, #0C172B);
+                opacity: 1;
+            }
         }
 
         .fleet-page {
@@ -335,6 +359,8 @@ export default function FleetPage() {
           cursor: pointer;
           transition: all 0.3s ease;
           text-decoration: none; /* <-- remove underline */
+          display: block; /* Ensure it behaves like a block for width */
+          text-align: center;
         }
 
         .aircraft-cta:hover {
@@ -365,6 +391,8 @@ export default function FleetPage() {
           border-radius: 50px;
           font-weight: 700;
           cursor: pointer;
+          display: inline-block;
+          text-decoration: none;
         }
 
         .home-btn {
@@ -393,6 +421,8 @@ export default function FleetPage() {
           .fleet-header h1 { font-size: 2.8rem; }
           .fleet-grid { grid-template-columns: 1fr; padding: 20px; }
           .aircraft-specs { grid-template-columns: 1fr 1fr; }
+          .fleet-cta-btn { width: 100%; } /* full width button on mobile */
+          .home-btn { top: 20px; left: 20px; padding: 10px 25px; font-size: 0.9rem; } /* resize home button */
         }
       `}</style>
 
@@ -401,57 +431,57 @@ export default function FleetPage() {
         <header className="fleet-header" data-aos="fade-down">
           <h1>Our Fleet</h1>
           <p>
-            Explore our handpicked selection of premium aircraft — each maintained to the highest standards 
+            Explore our handpicked selection of premium aircraft — each maintained to the highest standards
             of safety, performance, and luxury for your journey across Africa and beyond.
           </p>
         </header>
 
-  {/* Aircraft Grid */}
-<section className="fleet-grid">
-  {fleet.map((aircraft) => (
-    <div
-      key={aircraft.id}
-      className="aircraft-card"
-      data-aos="fade-up"
-      data-aos-delay={(aircraft.id - 1) * 150}
-    >
-      <div className="aircraft-card__image-wrapper">
-        <img src={aircraft.imageUrl} alt={aircraft.name} />
-      </div>
-      <div className="aircraft-card__content">
-        <h3 className="aircraft-title">{aircraft.name}</h3>
-        <span className="aircraft-tag">{aircraft.category}</span>
-        <p className="aircraft-desc">{aircraft.description}</p>
+        {/* Aircraft Grid */}
+        <section className="fleet-grid">
+          {fleet.map((aircraft) => (
+            <div
+              key={aircraft.id}
+              className="aircraft-card"
+              data-aos="fade-up"
+              data-aos-delay={(aircraft.id - 1) * 100} // Reduced delay
+            >
+              <div className="aircraft-card__image-wrapper">
+                <img src={aircraft.imageUrl} alt={aircraft.name} loading="lazy" />
+              </div>
+              <div className="aircraft-card__content">
+                <h3 className="aircraft-title">{aircraft.name}</h3>
+                <span className="aircraft-tag">{aircraft.category}</span>
+                <p className="aircraft-desc">{aircraft.description}</p>
 
-        <div className="aircraft-specs">
-          <div>
-            <span>Passengers</span>
-            <strong>{aircraft.seats}</strong>
-          </div>
-          <div>
-            <span>Range</span>
-            <strong>{aircraft.range}</strong>
-          </div>
-          <div>
-            <span>Speed</span>
-            <strong>{aircraft.speed}</strong>
-          </div>
-        </div>
+                <div className="aircraft-specs">
+                  <div>
+                    <span>Passengers</span>
+                    <strong>{aircraft.seats}</strong>
+                  </div>
+                  <div>
+                    <span>Range</span>
+                    <strong>{aircraft.range}</strong>
+                  </div>
+                  <div>
+                    <span>Speed</span>
+                    <strong>{aircraft.speed}</strong>
+                  </div>
+                </div>
 
-        <Link to="/contact" className="aircraft-cta">
-          Request Quote
-        </Link>
-      </div>
-    </div>
-  ))}
-</section>
+                <Link to="/contact" className="aircraft-cta">
+                  Request Quote
+                </Link>
+              </div>
+            </div>
+          ))}
+        </section>
 
 
         {/* CTA Section */}
         <section className="fleet-cta-section" data-aos="fade-up">
           <h2>Need a Specific Aircraft?</h2>
           <p>
-            Whether it's a helicopter, VIP airliner, or cargo aircraft — our team can source and deliver 
+            Whether it's a helicopter, VIP airliner, or cargo aircraft — our team can source and deliver
             exactly what you need, anywhere in the world.
           </p>
           <Link to="/contact" className="fleet-cta-btn">
@@ -460,7 +490,7 @@ export default function FleetPage() {
         </section>
 
         {/* Home Button */}
-        <Link   to="/" className="home-btn"  data-aos="fade">
+        <Link to="/" className="home-btn" data-aos="fade">
           Home
         </Link>
       </div>

@@ -10,10 +10,10 @@ const LandingPage = () => {
   useEffect(() => {
     // Initialize AOS
     AOS.init({
-      duration: 1000,
+      duration: 800, // Reduced duration for snappier feel
       easing: "ease-out-cubic",
       once: true, // Animation triggers only once
-      offset: 100, // Offset (in pixels) from the top
+      offset: 50, // Reduced offset so elements appear sooner
     });
 
     // Navbar scroll effect
@@ -27,7 +27,7 @@ const LandingPage = () => {
         }
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true }); // optimize scroll
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -88,6 +88,8 @@ const LandingPage = () => {
           min-height: 100vh;
           display: flex;
           align-items: center;
+          /* Fallback background for mobile where video is hidden */
+          background: url("/jet.jpeg") center/cover no-repeat;
         }
 
         .hero-video {
@@ -98,6 +100,20 @@ const LandingPage = () => {
           height: 100%;
           object-fit: cover;
           z-index: 0;
+        }
+
+        /* Hide video on mobile devices */
+        @media (max-width: 768px) {
+          .hero-video {
+            display: none;
+          }
+           /* Ensure navbar is visible on mobile open menu */
+          .navbar-collapse {
+             background: ${darkMode ? "rgba(10, 15, 28, 0.95)" : "rgba(26, 42, 68, 0.95)"};
+             backdrop-filter: blur(10px);
+             padding: 1rem;
+             border-radius: 0 0 10px 10px;
+          }
         }
 
         .hero-overlay {
@@ -135,6 +151,12 @@ const LandingPage = () => {
           background: transparent;
           padding: 80px 0;
         }
+        
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 40px 0;
+            }
+        }
 
         .contact-item {
           background: ${darkMode ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.15)"};
@@ -166,11 +188,20 @@ const LandingPage = () => {
           background: ${darkMode ? "rgba(255, 255, 255, 0.1)" : "rgba(26, 42, 68, 0.1)"};
           border: 2px solid ${darkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(26, 42, 68, 0.2)"};
           color: ${darkMode ? "#ffffff" : "var(--primary-color)"};
-          border-radius: 50px;
-          padding: 8px 16px;
+          border-radius: 50%; /* Make it circular */
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
           transition: all 0.3s ease;
           backdrop-filter: blur(10px);
+          padding: 0; /* Remove padding */
+        }
+        
+        .dark-mode-toggle i {
+            margin: 0 !important; /* Center the icon */
         }
 
         .dark-mode-toggle:hover {
@@ -196,19 +227,20 @@ const LandingPage = () => {
               src="/logo1.2.png"
               alt="Vivante Logo"
               style={{ height: "50px", width: "50px", marginRight: "12px" }}
+              loading="lazy"
             />
             <span className="fw-bold text-white fs-4">Vivante Air Charters</span>
           </Link>
 
           <div className="d-flex align-items-center">
-            {/* Dark Mode Toggle */}
+            {/* Dark Mode Toggle - Icon Only */}
             <button
               className="dark-mode-toggle me-3"
               onClick={toggleDarkMode}
               aria-label="Toggle dark mode"
+              title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               <i className={`fas ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
-              <span className="ms-2">{darkMode ? "Light Mode" : "Dark Mode"}</span>
             </button>
 
             <button
@@ -260,15 +292,6 @@ const LandingPage = () => {
           playsInline
           poster="/hero-poster.jpg" // Fallback image if video fails
           src="/video 2.mp4" // Replace with your video file in public/
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
-          }}
         />
         <div className="hero-overlay"></div>
 
@@ -299,14 +322,13 @@ const LandingPage = () => {
                   <Link
                     to="/services"
                     className="btn btn-light btn-lg px-5 py-3 fw-semibold"
-                    style={{ backgroundColor: "var(--primary-color)", borderColor: "var(--primary-color)" }}
+                    style={{ backgroundColor: "#ffffff", color: "var(--primary-color)", border: "none" }}
                   >
                     Get Started
                   </Link>
                   <a
                     href="#Features"
                     className="btn btn-outline-light btn-lg px-5 py-3 fw-semibold"
-                    style={{ borderColor: "var(--primary-color)", color: "var(--primary-color)" }}
                   >
                     Learn More
                   </a>
@@ -423,16 +445,16 @@ const LandingPage = () => {
               {
                 icon: "fa-map-marker-alt",
                 title: "Address",
-                content: "123 Sky Tower,<br />Aviation District,<br />Global City",
+                content: "Nairobi, Kenya",
               },
               {
                 icon: "fa-envelope",
                 title: "Email",
-                content: "charter@vivante.com<br />support@vivante.com",
+                content: "charters@vivante.com<br />info@vivante.com",
               },
               {
                 icon: "fa-phone",
-                title: "Phone",
+                title: "Phone / WhatsApp",
                 content: "+254 758-007-505",
               },
             ].map((item, i) => (

@@ -22,6 +22,7 @@ const ServicePage = () => {
     { title: "Sightseeing / Aerial Work / Aerial Photography", desc: "Specialized missions for film production, surveying, mapping, photography, and inspection flights." },
     { title: "Flight Training / Hour Building", desc: "Affordable aircraft rental for pilot training, license upgrades, and hour-building requirements." },
     { title: "Empty Legs", desc: "Enjoy up to 75% off regular charter rates on one-way repositioning flights — luxury at a fraction of the cost." },
+    { title: "Content Creation and Filming", desc: "Perfect for content creators, film makers and media houses requiring aircraft related content. Static Aircraft media charter: Aircraft media flight charters and Aviation Production Support." },
   ];
 
   const getIcon = (title) => {
@@ -34,7 +35,8 @@ const ServicePage = () => {
       "Cargo": "fa-truck-loading",
       "Sightseeing": "fa-camera",
       "Flight Training": "fa-graduation-cap",
-      "Empty Legs": "fa-tag"
+      "Empty Legs": "fa-tag",
+      "Content": "fa-film"
     };
     return Object.keys(map).find(key => title.includes(key)) ? map[Object.keys(map).find(key => title.includes(key))] : "fa-plane";
   };
