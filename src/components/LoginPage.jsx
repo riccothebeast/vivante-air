@@ -69,8 +69,8 @@ const LoginPage = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>Email address</label>
-                            <div className="input-wrapper">
-                                <i className="fas fa-envelope"></i>
+                            <div className="auth-input-wrapper">
+                                <i className="fas fa-envelope input-icon"></i>
                                 <input
                                     type="email"
                                     name="email"
@@ -83,8 +83,8 @@ const LoginPage = () => {
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <div className="input-wrapper">
-                                <i className="fas fa-lock"></i>
+                            <div className="auth-input-wrapper">
+                                <i className="fas fa-lock input-icon"></i>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -93,7 +93,7 @@ const LoginPage = () => {
                                     onChange={handleChange}
                                     required
                                 />
-                                <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
+                                <button type="button" className="eye-btn-toggle" onClick={() => setShowPassword(!showPassword)}>
                                     <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
                                 </button>
                             </div>

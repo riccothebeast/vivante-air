@@ -71,8 +71,8 @@ const SignupPage = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>Email address</label>
-                            <div className="input-wrapper">
-                                <i className="fas fa-envelope"></i>
+                            <div className="auth-input-wrapper">
+                                <i className="fas fa-envelope input-icon"></i>
                                 <input
                                     type="email"
                                     name="email"
@@ -85,8 +85,8 @@ const SignupPage = () => {
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <div className="input-wrapper">
-                                <i className="fas fa-lock"></i>
+                            <div className="auth-input-wrapper">
+                                <i className="fas fa-lock input-icon"></i>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -95,15 +95,15 @@ const SignupPage = () => {
                                     onChange={handleChange}
                                     required
                                 />
-                                <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
+                                <button type="button" className="eye-btn-toggle" onClick={() => setShowPassword(!showPassword)}>
                                     <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
                                 </button>
                             </div>
                         </div>
                         <div className="form-group">
                             <label>Confirm Password</label>
-                            <div className="input-wrapper">
-                                <i className="fas fa-shield-alt"></i>
+                            <div className="auth-input-wrapper">
+                                <i className="fas fa-shield-alt input-icon"></i>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="confirmPassword"
@@ -112,7 +112,7 @@ const SignupPage = () => {
                                     onChange={handleChange}
                                     required
                                 />
-                                <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
+                                <button type="button" className="eye-btn-toggle" onClick={() => setShowPassword(!showPassword)}>
                                     <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
                                 </button>
                             </div>
