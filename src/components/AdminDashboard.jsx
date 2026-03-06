@@ -51,6 +51,50 @@ const AdminDashboard = () => {
         navigate('/login');
     };
 
+    const handleAction = async (id, status) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ status })
+            });
+
+            if (response.ok) {
+                setBookings(bookings.map(b => b._id === id ? { ...b, status } : b));
+            } else {
+                alert('Failed to update status');
+            }
+        } catch (err) {
+            console.error('Action Error:', err);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this booking inquiry?')) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                setBookings(bookings.filter(b => b._id !== id));
+            } else {
+                alert('Failed to delete booking');
+            }
+        } catch (err) {
+            console.error('Delete Error:', err);
+        }
+    };
+
     if (loading) return <div className="admin-loading">Loading Dashboard...</div>;
 
     return (
@@ -92,7 +136,8 @@ const AdminDashboard = () => {
                                 <th>Dates</th>
                                 <th>Pax</th>
                                 <th>Message</th>
-                                <th>Booking Ref</th>
+                                <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -122,7 +167,36 @@ const AdminDashboard = () => {
                                     <td>
                                         <div className="status-container">
                                             <span className="booking-id">#{booking._id.slice(-6).toUpperCase()}</span>
-                                            <span className="status-badge pending">{booking.status}</span>
+                                            <span className={`status-badge ${booking.status.toLowerCase()}`}>{booking.status}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="action-buttons">
+                                            {booking.status === 'Pending' && (
+                                                <>
+                                                    <button
+                                                        className="action-btn approve"
+                                                        onClick={() => handleAction(booking._id, 'Confirmed')}
+                                                        title="Approve"
+                                                    >
+                                                        <i className="fas fa-check"></i>
+                                                    </button>
+                                                    <button
+                                                        className="action-btn reject"
+                                                        onClick={() => handleAction(booking._id, 'Rejected')}
+                                                        title="Reject"
+                                                    >
+                                                        <i className="fas fa-times"></i>
+                                                    </button>
+                                                </>
+                                            )}
+                                            <button
+                                                className="action-btn delete"
+                                                onClick={() => handleDelete(booking._id)}
+                                                title="Delete"
+                                            >
+                                                <i className="fas fa-trash"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>

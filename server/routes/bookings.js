@@ -67,4 +67,55 @@ router.get('/', verifyToken, async (req, res) => {
     }
 });
 
+// Update Booking Status (Admin Only)
+router.patch('/:id/status', verifyToken, async (req, res) => {
+    try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Only admins can update booking status' });
+        }
+
+        const { status } = req.body;
+        const validStatuses = ['Pending', 'Confirmed', 'Rejected'];
+
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ message: 'Invalid status' });
+        }
+
+        const booking = await Booking.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        res.json(booking);
+    } catch (error) {
+        console.error('Update Status Error:', error);
+        res.status(500).json({ message: 'Error updating booking status', error: error.message });
+    }
+});
+
+// Delete Booking (Admin Only)
+router.delete('/:id', verifyToken, async (req, res) => {
+    try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Only admins can delete bookings' });
+        }
+
+        const booking = await Booking.findByIdAndDelete(req.params.id);
+
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        res.json({ message: 'Booking deleted successfully' });
+    } catch (error) {
+        console.error('Delete Booking Error:', error);
+        res.status(500).json({ message: 'Error deleting booking', error: error.message });
+    }
+});
+
 module.exports = router;
