@@ -95,7 +95,17 @@ const AdminDashboard = () => {
         }
     };
 
-    if (loading) return <div className="admin-loading">Loading Dashboard...</div>;
+    const SkeletonRow = () => (
+        <tr className="skeleton-row">
+            <td><div className="skeleton-box client"></div></td>
+            <td><div className="skeleton-box flight"></div></td>
+            <td><div className="skeleton-box date"></div></td>
+            <td><div className="skeleton-box pax"></div></td>
+            <td><div className="skeleton-box message"></div></td>
+            <td><div className="skeleton-box status"></div></td>
+            <td><div className="skeleton-box actions"></div></td>
+        </tr>
+    );
 
     return (
         <div className="admin-container">
@@ -111,23 +121,23 @@ const AdminDashboard = () => {
             </nav>
 
             <div className="admin-content">
-                <header className="dashboard-header">
+                <header className="dashboard-header animated fadeIn">
                     <h1>Flight Bookings Overview</h1>
                     <div className="stats-cards">
                         <div className="stat-card">
                             <h3>Total Bookings</h3>
-                            <p>{bookings.length}</p>
+                            <p>{loading ? <span className="skeleton-text">--</span> : bookings.length}</p>
                         </div>
                         <div className="stat-card">
                             <h3>Pending Requests</h3>
-                            <p>{bookings.filter(b => b.status === 'Pending').length}</p>
+                            <p>{loading ? <span className="skeleton-text">--</span> : bookings.filter(b => b.status === 'Pending').length}</p>
                         </div>
                     </div>
                 </header>
 
                 {error && <div className="admin-error">{error}</div>}
 
-                <div className="bookings-table-container">
+                <div className="bookings-table-container animated slideUp">
                     <table className="bookings-table">
                         <thead>
                             <tr>
@@ -141,69 +151,79 @@ const AdminDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {bookings.map((booking) => (
-                                <tr key={booking._id}>
-                                    <td>
-                                        <div className="client-info">
-                                            <span className="client-name">{booking.firstName} {booking.lastName}</span>
-                                            <span className="client-email">{booking.email}</span>
-                                            <span className="client-phone">{booking.phone}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="flight-info">
-                                            <span className="service-type">{booking.serviceType}</span>
-                                            <span className="aircraft-type">{booking.aircraft || 'Not Specified'}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="date-info">
-                                            <div>Dep: {new Date(booking.date).toLocaleDateString()}</div>
-                                            {booking.returnDate && <div>Ret: {new Date(booking.returnDate).toLocaleDateString()}</div>}
-                                        </div>
-                                    </td>
-                                    <td>{booking.passengers}</td>
-                                    <td className="message-cell" title={booking.message}>{booking.message ? (booking.message.length > 50 ? booking.message.substring(0, 50) + '...' : booking.message) : '-'}</td>
-                                    <td>
-                                        <div className="status-container">
-                                            <span className="booking-id">#{booking._id.slice(-6).toUpperCase()}</span>
-                                            <span className={`status-badge ${booking.status.toLowerCase()}`}>{booking.status}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="action-buttons">
-                                            {booking.status === 'Pending' && (
-                                                <>
-                                                    <button
-                                                        className="action-btn approve"
-                                                        onClick={() => handleAction(booking._id, 'Confirmed')}
-                                                        title="Approve"
-                                                    >
-                                                        <i className="fas fa-check"></i>
-                                                    </button>
-                                                    <button
-                                                        className="action-btn reject"
-                                                        onClick={() => handleAction(booking._id, 'Rejected')}
-                                                        title="Reject"
-                                                    >
-                                                        <i className="fas fa-times"></i>
-                                                    </button>
-                                                </>
-                                            )}
-                                            <button
-                                                className="action-btn delete"
-                                                onClick={() => handleDelete(booking._id)}
-                                                title="Delete"
-                                            >
-                                                <i className="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                            {bookings.length === 0 && (
+                            {loading ? (
+                                <>
+                                    <SkeletonRow />
+                                    <SkeletonRow />
+                                    <SkeletonRow />
+                                    <SkeletonRow />
+                                    <SkeletonRow />
+                                </>
+                            ) : (
+                                bookings.map((booking) => (
+                                    <tr key={booking._id} className="animated fadeIn">
+                                        <td>
+                                            <div className="client-info">
+                                                <span className="client-name">{booking.firstName} {booking.lastName}</span>
+                                                <span className="client-email">{booking.email}</span>
+                                                <span className="client-phone">{booking.phone}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="flight-info">
+                                                <span className="service-type">{booking.serviceType}</span>
+                                                <span className="aircraft-type">{booking.aircraft || 'Not Specified'}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="date-info">
+                                                <div>Dep: {new Date(booking.date).toLocaleDateString()}</div>
+                                                {booking.returnDate && <div>Ret: {new Date(booking.returnDate).toLocaleDateString()}</div>}
+                                            </div>
+                                        </td>
+                                        <td>{booking.passengers}</td>
+                                        <td className="message-cell" title={booking.message}>{booking.message ? (booking.message.length > 50 ? booking.message.substring(0, 50) + '...' : booking.message) : '-'}</td>
+                                        <td>
+                                            <div className="status-container">
+                                                <span className="booking-id">#{booking._id.slice(-6).toUpperCase()}</span>
+                                                <span className={`status-badge ${booking.status.toLowerCase()}`}>{booking.status}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="action-buttons">
+                                                {booking.status === 'Pending' && (
+                                                    <>
+                                                        <button
+                                                            className="action-btn approve"
+                                                            onClick={() => handleAction(booking._id, 'Confirmed')}
+                                                            title="Approve"
+                                                        >
+                                                            <i className="fas fa-check"></i>
+                                                        </button>
+                                                        <button
+                                                            className="action-btn reject"
+                                                            onClick={() => handleAction(booking._id, 'Rejected')}
+                                                            title="Reject"
+                                                        >
+                                                            <i className="fas fa-times"></i>
+                                                        </button>
+                                                    </>
+                                                )}
+                                                <button
+                                                    className="action-btn delete"
+                                                    onClick={() => handleDelete(booking._id)}
+                                                    title="Delete"
+                                                >
+                                                    <i className="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                            {!loading && bookings.length === 0 && (
                                 <tr>
-                                    <td colSpan="6" className="no-data">No inquiries found</td>
+                                    <td colSpan="7" className="no-data">No inquiries found</td>
                                 </tr>
                             )}
                         </tbody>
@@ -211,6 +231,20 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
+    );
+};
+{
+    bookings.length === 0 && (
+        <tr>
+            <td colSpan="6" className="no-data">No inquiries found</td>
+        </tr>
+    )
+}
+                        </tbody >
+                    </table >
+                </div >
+            </div >
+        </div >
     );
 };
 
