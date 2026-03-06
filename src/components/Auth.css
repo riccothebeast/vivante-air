@@ -147,11 +147,8 @@
 
 .input-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s ease;
   width: 100%;
-  /* Ensure wrapper takes full width */
+  box-sizing: border-box;
 }
 
 .input-wrapper:hover,
@@ -162,14 +159,19 @@
 .input-wrapper i {
   position: absolute;
   left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: rgba(255, 255, 255, 0.3);
   font-size: 1.1rem;
   pointer-events: none;
+  z-index: 2;
 }
 
 .form-group input {
   width: 100%;
-  padding: 1.1rem 3rem 1.1rem 3.2rem;
+  display: block;
+  box-sizing: border-box;
+  padding: 1.1rem 3.5rem 1.1rem 3.2rem;
   border-radius: 12px;
   border: 1px solid var(--glass-border);
   background: var(--input-bg);
@@ -199,7 +201,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
+  z-index: 10;
 }
 
 .eye-btn:hover {
