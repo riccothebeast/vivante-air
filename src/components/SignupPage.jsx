@@ -52,56 +52,74 @@ const SignupPage = () => {
 
     return (
         <div className="auth-container">
-            <Link to="/" className="home-auth-btn"><i className="fas fa-home"></i> Home</Link>
-            <div className="auth-card">
-                <h2>Sign Up for Vivante Air</h2>
-                {error && <div className="auth-error">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
+            <div className="auth-hero">
+                <div className="auth-hero-content">
+                    <h1>Your Journey Begins Here.</h1>
+                    <p>Join the circle of elite travelers and experience aviation redefined with Vivante Air Charters.</p>
+                </div>
+            </div>
+            <div className="auth-form-side">
+                <Link to="/" className="home-auth-btn">
+                    <i className="fas fa-arrow-left"></i> Home
+                </Link>
+                <div className="auth-card">
+                    <div className="auth-header">
+                        <h2>Welcome to Vivante Air</h2>
+                        <p>Create your account to get started</p>
                     </div>
-                    <div className="form-group password-group">
-                        <label>Password</label>
-                        <div className="input-wrapper">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                            <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
-                                <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
-                            </button>
+                    {error && <div className="auth-error">{error}</div>}
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>Email address</label>
+                            <div className="input-wrapper">
+                                <i className="fas fa-envelope"></i>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="yourname@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group password-group">
-                        <label>Confirm Password</label>
-                        <div className="input-wrapper">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                required
-                            />
-                            <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
-                                <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
-                            </button>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <div className="input-wrapper">
+                                <i className="fas fa-lock"></i>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Create a password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
+                                    <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" className="auth-btn">Sign Up</button>
-                </form>
-                <p className="auth-switch">
-                    Already have an account? <Link to="/login">Login here</Link>
-                </p>
+                        <div className="form-group">
+                            <label>Confirm Password</label>
+                            <div className="input-wrapper">
+                                <i className="fas fa-shield-alt"></i>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="confirmPassword"
+                                    placeholder="Confirm your password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <button type="submit" className="auth-btn">Create Account</button>
+                    </form>
+                    <p className="auth-switch">
+                        Already have an account? <Link to="/login">Sign in</Link>
+                    </p>
+                </div>
             </div>
         </div>
     );
