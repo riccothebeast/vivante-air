@@ -195,7 +195,7 @@ export default function FleetPage() {
       />
 
 
-      <style jsx>{`
+      <style>{`
         :root {
           --primary: #1A2A44;
           --accent: #00d4ff;
@@ -222,14 +222,14 @@ export default function FleetPage() {
             z-index: -1;
         }
 
-        /* Hide video on mobile and use a solid background or gradient */
+        /* On mobile: hide heavy video, show a lightweight poster image instead */
         @media (max-width: 768px) {
             .fleet-video-bg {
                 display: none;
             }
             .fleet-video-overlay {
-                background: linear-gradient(to bottom, #1A2A44, #0C172B);
-                opacity: 1;
+                background: linear-gradient(to bottom, rgba(26,42,68,0.7), rgba(12,23,43,0.85)),
+                            url('/jet.jpeg') center/cover no-repeat;
             }
         }
 

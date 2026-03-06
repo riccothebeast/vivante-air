@@ -76,7 +76,7 @@ const AdminDashboard = () => {
                         </div>
                         <div className="stat-card">
                             <h3>Pending Requests</h3>
-                            <p>{bookings.length}</p> {/* Placeholder logic */}
+                            <p>{bookings.filter(b => b.status === 'Pending').length}</p>
                         </div>
                     </div>
                 </header>

@@ -100,7 +100,7 @@ const SignupPage = () => {
                     <button type="submit" className="auth-btn">Sign Up</button>
                 </form>
                 <p className="auth-switch">
-                    Already have an account? <a href="/login">Login here</a>
+                    Already have an account? <Link to="/login">Login here</Link>
                 </p>
             </div>
         </div>

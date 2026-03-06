@@ -21,6 +21,9 @@ const ContactPage = () => {
     serviceType: 'Executive/VIP Transport',
     message: ''
   });
+  const [submitSuccess, setSubmitSuccess] = useState('');
+  const [submitError, setSubmitError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -52,9 +55,11 @@ const ContactPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitSuccess('');
+    setSubmitError('');
+    setSubmitting(true);
     const token = localStorage.getItem('token');
     if (!token) {
-      alert("Please login first.");
       navigate('/login');
       return;
     }
@@ -72,14 +77,20 @@ const ContactPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Thank you for your inquiry! We will contact you shortly.");
-        navigate('/');
+        setSubmitSuccess('Thank you for your inquiry! We will contact you shortly.');
+        setFormData({
+          firstName: '', lastName: '', email: '', phone: '',
+          date: '', returnDate: '', aircraft: '', passengers: 1,
+          serviceType: 'Executive/VIP Transport', message: ''
+        });
       } else {
-        alert(data.message || "Failed to submit inquiry.");
+        setSubmitError(data.message || 'Failed to submit inquiry.');
       }
     } catch (err) {
       console.error(err);
-      alert("Error sending request.");
+      setSubmitError('Error sending request. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -127,7 +138,7 @@ const ContactPage = () => {
       />
 
       {/* THEME & PAGE CSS */}
-      <style jsx>{`
+      <style>{`
         :root {
           --primary: #1a2a44;
           --bg: #2a4066;
@@ -444,9 +455,19 @@ const ContactPage = () => {
                 ></textarea>
               </div>
 
+              {submitSuccess && (
+                <div style={{ background: 'rgba(40,167,69,0.2)', border: '1px solid rgba(40,167,69,0.5)', color: '#6fcf97', borderRadius: '12px', padding: '14px 20px', marginBottom: '16px', textAlign: 'center', fontWeight: 600 }}>
+                  ✓ {submitSuccess}
+                </div>
+              )}
+              {submitError && (
+                <div style={{ background: 'rgba(220,53,69,0.2)', border: '1px solid rgba(220,53,69,0.5)', color: '#ff6b7a', borderRadius: '12px', padding: '14px 20px', marginBottom: '16px', textAlign: 'center', fontWeight: 600 }}>
+                  ✗ {submitError}
+                </div>
+              )}
               <div className="text-center">
-                <button type="submit" className="btn-submit">
-                  Send Message
+                <button type="submit" className="btn-submit" disabled={submitting}>
+                  {submitting ? 'Sending...' : 'Send Message'}
                 </button>
               </div>
             </form>

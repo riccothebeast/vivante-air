@@ -1,19 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS CSS
 import "./LandingPage.css";
 
+const HERO_TITLE = "Welcome to Vivante Air Charters";
+const HERO_SUBTITLE = "Every Journey, Refined With Precision.";
+
 const LandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
+
+  // Typewriter state
+  const [titleText, setTitleText] = useState("");
+  const [subtitleText, setSubtitleText] = useState("");
+  const [showButtons, setShowButtons] = useState(false);
+  const [titleDone, setTitleDone] = useState(false);
+  const [subtitleDone, setSubtitleDone] = useState(false);
+  const titleIndex = useRef(0);
+  const subIndex = useRef(0);
 
   useEffect(() => {
     // Initialize AOS
     AOS.init({
-      duration: 800, // Reduced duration for snappier feel
+      duration: 800,
       easing: "ease-out-cubic",
-      once: true, // Animation triggers only once
-      offset: 50, // Reduced offset so elements appear sooner
+      once: true,
+      offset: 50,
     });
 
     // Navbar scroll effect
@@ -27,9 +39,44 @@ const LandingPage = () => {
         }
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true }); // optimize scroll
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Phase 1: type title
+  useEffect(() => {
+    if (titleIndex.current >= HERO_TITLE.length) {
+      setTitleDone(true);
+      return;
+    }
+    const timer = setTimeout(() => {
+      titleIndex.current += 1;
+      setTitleText(HERO_TITLE.slice(0, titleIndex.current));
+    }, 55);
+    return () => clearTimeout(timer);
+  }, [titleText]);
+
+  // Phase 2: type subtitle after title is done
+  useEffect(() => {
+    if (!titleDone) return;
+    if (subIndex.current >= HERO_SUBTITLE.length) {
+      setSubtitleDone(true);
+      return;
+    }
+    const timer = setTimeout(() => {
+      subIndex.current += 1;
+      setSubtitleText(HERO_SUBTITLE.slice(0, subIndex.current));
+    }, 45);
+    return () => clearTimeout(timer);
+  }, [titleDone, subtitleText]);
+
+  // Phase 3: show buttons after subtitle done
+  useEffect(() => {
+    if (subtitleDone) {
+      const t = setTimeout(() => setShowButtons(true), 200);
+      return () => clearTimeout(t);
+    }
+  }, [subtitleDone]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -49,7 +96,7 @@ const LandingPage = () => {
       />
 
       {/* Inline CSS */}
-      <style jsx>{`
+      <style>{`
         :root {
           --primary-color: #1A2A44; /* Navy blue */
           --secondary-color: #6c757d;
@@ -90,6 +137,44 @@ const LandingPage = () => {
           align-items: center;
           /* Fallback background for mobile where video is hidden */
           background: url("/jet.jpeg") center/cover no-repeat;
+        }
+
+        /* Typewriter cursor */
+        .typewriter-cursor {
+          display: inline-block;
+          width: 3px;
+          background: rgba(255,255,255,0.9);
+          margin-left: 4px;
+          border-radius: 2px;
+          animation: blink 0.85s step-end infinite;
+          vertical-align: baseline;
+        }
+
+        .typewriter-cursor.h1-cursor {
+          height: 0.85em;
+        }
+
+        .typewriter-cursor.sub-cursor {
+          height: 0.75em;
+        }
+
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+
+        /* Buttons fade-in */
+        .hero-buttons {
+          opacity: 0;
+          transform: translateY(18px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+          pointer-events: none;
+        }
+
+        .hero-buttons.visible {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
         }
 
         .hero-video {
@@ -295,29 +380,26 @@ const LandingPage = () => {
         />
         <div className="hero-overlay"></div>
 
-        <div className="container position-relative text-center text-md-start">
+        <div className="container position-relative text-center">
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="hero-content-wrapper">
                 <h1
                   className="display-3 fw-bold text-white mb-4"
-                  data-aos="fade-up"
-                  style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.5)" }} // Enhance readability
+                  style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.5)", minHeight: "1.2em" }}
                 >
-                  Welcome to Vivante Air Charters
+                  {titleText}
+                  {!titleDone && <span className="typewriter-cursor h1-cursor" />}
                 </h1>
                 <p
                   className="lead text-white mb-5 opacity-90"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                  style={{ textShadow: "0 2px 6px rgba(0, 0, 0, 0.5)" }} // Enhance readability
+                  style={{ textShadow: "0 2px 6px rgba(0, 0, 0, 0.5)", minHeight: "1.5em" }}
                 >
-                  Every Journey,Refined With Precision.
+                  {subtitleText}
+                  {titleDone && !subtitleDone && <span className="typewriter-cursor sub-cursor" />}
                 </p>
                 <div
-                  className="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-md-start"
-                  data-aos="fade-up"
-                  data-aos-delay="400"
+                  className={`d-flex flex-column flex-sm-row gap-3 justify-content-center hero-buttons${showButtons ? " visible" : ""}`}
                 >
                   <Link
                     to="/services"
@@ -450,7 +532,7 @@ const LandingPage = () => {
               {
                 icon: "fa-envelope",
                 title: "Email",
-                content: "charters@vivante.com<br />info@vivante.com",
+                content: "charters@ivanteair.com<br />info@vivanteair.com",
               },
               {
                 icon: "fa-phone",
