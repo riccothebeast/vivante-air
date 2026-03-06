@@ -233,19 +233,5 @@ const AdminDashboard = () => {
         </div>
     );
 };
-{
-    bookings.length === 0 && (
-        <tr>
-            <td colSpan="6" className="no-data">No inquiries found</td>
-        </tr>
-    )
-}
-                        </tbody >
-                    </table >
-                </div >
-            </div >
-        </div >
-    );
-};
 
 export default AdminDashboard;
