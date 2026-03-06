@@ -55,7 +55,7 @@ const SignupPage = () => {
             <div className="auth-hero">
                 <div className="auth-hero-content">
                     <h1>Your Journey Begins Here.</h1>
-                    <p>Join the circle of elite travelers and experience aviation redefined with Vivante Air Charters.</p>
+                    <p>Join the circle of elite travelers and experience aviation redefined across the world with Vivante Air Charters.</p>
                 </div>
             </div>
             <div className="auth-form-side">

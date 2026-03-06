@@ -24,7 +24,8 @@
   position: relative;
   background: url('../assets/auth-bg.png') center/cover no-repeat;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  /* Vertically center hero content */
   padding: 4rem;
 }
 
@@ -66,6 +67,11 @@
   padding: 2rem;
   background: radial-gradient(circle at top right, #1A2A44 0%, #0a0f1c 100%);
   position: relative;
+  transition: all 0.5s ease;
+}
+
+.auth-form-side:hover {
+  background: radial-gradient(circle at top right, #253b5e 0%, #0a0f1c 100%);
 }
 
 .home-auth-btn {
@@ -143,6 +149,12 @@
   position: relative;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper:hover,
+.input-wrapper:focus-within {
+  filter: drop-shadow(0 0 8px rgba(0, 136, 255, 0.4));
 }
 
 .input-wrapper i {

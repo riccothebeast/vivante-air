@@ -53,7 +53,7 @@ const LoginPage = () => {
             <div className="auth-hero">
                 <div className="auth-hero-content">
                     <h1>Experience the Peak of Aviation.</h1>
-                    <p>Unlock exclusive access to premium charters and seamless travel across Africa.</p>
+                    <p>Unlock exclusive access to premium charters and seamless travel across the world.</p>
                 </div>
             </div>
             <div className="auth-form-side">
@@ -74,7 +74,7 @@ const LoginPage = () => {
                                 <input
                                     type="email"
                                     name="email"
-                                    placeholder="yourname@example.com"
+                                    placeholder=""
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
