@@ -22,7 +22,7 @@
 .auth-hero {
   flex: 1.2;
   position: relative;
-  background: url('/auth-bg.png') center/cover no-repeat;
+  background: url('../assets/auth-bg.png') center/cover no-repeat;
   display: flex;
   align-items: flex-end;
   padding: 4rem;
