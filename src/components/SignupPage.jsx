@@ -60,7 +60,7 @@ const SignupPage = () => {
             </div>
             <div className="auth-form-side">
                 <Link to="/" className="home-auth-btn">
-                    <i className="fas fa-arrow-left"></i> Home
+                    <i className="fas fa-home"></i>
                 </Link>
                 <div className="auth-card">
                     <div className="auth-header">
@@ -112,6 +112,9 @@ const SignupPage = () => {
                                     onChange={handleChange}
                                     required
                                 />
+                                <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
+                                    <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                                </button>
                             </div>
                         </div>
                         <button type="submit" className="auth-btn">Create Account</button>
