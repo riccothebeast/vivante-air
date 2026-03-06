@@ -424,18 +424,18 @@ const LandingPage = () => {
       {/* About Section */}
       <section id="about" className="py-5" style={{ background: "var(--section-bg-light)" }}>
         <div className="container">
-          <div className="row align-items-center g-5">
-            <div className="col-md-6">
+          <div className="row justify-content-center g-5">
+            <div className="col-lg-10 text-center">
               <h2
-                className="display-5 fw-bold mb-4 text-center text-md-start"
-                data-aos="fade-right"
+                className="display-5 fw-bold mb-4"
+                data-aos="fade-up"
                 style={{ color: "var(--primary-color)" }}
               >
                 Vivante Air Charters
               </h2>
               <p
                 className="lead mb-4"
-                data-aos="fade-right"
+                data-aos="fade-up"
                 data-aos-delay="200"
                 style={{ color: "var(--text-color)" }}
               >
