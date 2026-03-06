@@ -522,7 +522,7 @@ const LandingPage = () => {
               {
                 icon: "fa-envelope",
                 title: "Email",
-                content: "charters@ivanteair.com<br />info@vivanteair.com",
+                content: "charters@vivanteair.com<br />info@vivanteair.com",
               },
               {
                 icon: "fa-phone",
