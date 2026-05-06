@@ -3,13 +3,13 @@
   "name": "Vivante Air Charters",
   "icons": [
     {
-      "src": "logo1.2.png",
-      "type": "image/png",
+      "src": "logo1.1.jpg",
+      "type": "image/jpeg",
       "sizes": "192x192"
     },
     {
-      "src": "logo1.2.png",
-      "type": "image/png",
+      "src": "logo1.1.jpg",
+      "type": "image/jpeg",
       "sizes": "512x512"
     }
   ],
