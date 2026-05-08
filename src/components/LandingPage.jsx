@@ -301,7 +301,7 @@ const LandingPage = () => {
             <img
               src="/logo.1.png"
               alt="Vivante Logo"
-              style={{ height: "50px", width: "50px", marginRight: "12px" }}
+              style={{ height: "60px", width: "60px", marginRight: "12px", transform: "scale(1.4)" }}
               loading="lazy"
             />
             <span className="fw-bold text-white fs-4">Vivante Air Charters</span>

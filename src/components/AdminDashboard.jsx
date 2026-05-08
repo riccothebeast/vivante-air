@@ -111,7 +111,7 @@ const AdminDashboard = () => {
         <div className="admin-container">
             <nav className="admin-nav">
                 <div className="admin-brand">
-                    <img src="/logo.1.png" alt="Admin Logo" />
+                    <img src="/logo.1.png" alt="Admin Logo" style={{ transform: "scale(1.4)" }} />
                     <span>Admin Dashboard</span>
                 </div>
                 <div className="admin-profile">
