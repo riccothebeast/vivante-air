@@ -299,7 +299,7 @@ const LandingPage = () => {
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <img
-              src="/logo1.1.jpg"
+              src="/logo.1.png"
               alt="Vivante Logo"
               style={{ height: "50px", width: "50px", marginRight: "12px" }}
               loading="lazy"
