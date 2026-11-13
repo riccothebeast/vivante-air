@@ -23,4 +23,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// Index for role-based filtering
+userSchema.index({ role: 1, createdAt: -1 });
+
 module.exports = mongoose.model('User', userSchema);

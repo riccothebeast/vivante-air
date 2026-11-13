@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+/* ⚠️ IMAGE OPTIMIZATION: All fleet images in /public/*.jpg should be converted to .webp. See LandingPage.jsx for conversion command. */
+
 const fleet = [
   {
     id: 1,
@@ -446,7 +448,7 @@ export default function FleetPage() {
               data-aos-delay={(aircraft.id - 1) * 100} // Reduced delay
             >
               <div className="aircraft-card__image-wrapper">
-                <img src={aircraft.imageUrl} alt={aircraft.name} loading="lazy" />
+                <img src={aircraft.imageUrl} alt={aircraft.name} loading="lazy" width="400" height="220" />
               </div>
               <div className="aircraft-card__content">
                 <h3 className="aircraft-title">{aircraft.name}</h3>

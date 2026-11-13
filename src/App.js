@@ -1,43 +1,47 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-// Import all your pages — make sure the file names match exactly!
+// LandingPage is eager-loaded (above the fold / critical path)
 import LandingPage from "./components/LandingPage.jsx";
-import ServicePage from "./components/ServicePage.jsx";
-import ContactPage from "./components/ContactPage.jsx";
-import FleetPage from "./components/FleetPage.jsx";   // ← NEW: Fleet page added
-import SignupPage from "./components/SignupPage.jsx";
-import LoginPage from "./components/LoginPage.jsx";
-import BookingPage from "./components/BookingPage.jsx";
-import AdminDashboard from "./components/AdminDashboard.jsx";
+
+// All other pages are lazy-loaded for route-level code splitting
+const ServicePage      = lazy(() => import("./components/ServicePage.jsx"));
+const ContactPage      = lazy(() => import("./components/ContactPage.jsx"));
+const FleetPage        = lazy(() => import("./components/FleetPage.jsx"));
+const SignupPage       = lazy(() => import("./components/SignupPage.jsx"));
+const LoginPage        = lazy(() => import("./components/LoginPage.jsx"));
+const BookingPage      = lazy(() => import("./components/BookingPage.jsx"));
+const AdminDashboard   = lazy(() => import("./components/AdminDashboard.jsx"));
 
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Home */}
-        <Route path="/" element={<LandingPage />} />
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0C172B' }} />}>
+        <Routes>
+          {/* Home */}
+          <Route path="/" element={<LandingPage />} />
 
-        {/* Services */}
-        <Route path="/services" element={<ServicePage />} />
+          {/* Services */}
+          <Route path="/services" element={<ServicePage />} />
 
-        {/* Contact */}
-        <Route path="/contact" element={<ContactPage />} />
+          {/* Contact */}
+          <Route path="/contact" element={<ContactPage />} />
 
-        {/* NEW: Fleet Page */}
-        <Route path="/fleet" element={<FleetPage />} />
+          {/* Fleet Page */}
+          <Route path="/fleet" element={<FleetPage />} />
 
-        {/* Auth & Booking */}
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/book" element={<BookingPage />} />
+          {/* Auth & Booking */}
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/book" element={<BookingPage />} />
 
-        {/* Admin */}
-        <Route path="/admin" element={<AdminDashboard />} />
+          {/* Admin */}
+          <Route path="/admin" element={<AdminDashboard />} />
 
-        {/* Optional: Catch-all redirect (nice to have) */}
-        <Route path="*" element={<LandingPage />} />
-      </Routes>
+          {/* Catch-all redirect */}
+          <Route path="*" element={<LandingPage />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

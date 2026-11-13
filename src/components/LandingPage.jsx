@@ -4,6 +4,8 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS CSS
 import "./LandingPage.css";
 
+/* ⚠️ IMAGE OPTIMIZATION: Convert public/*.jpg and public/*.jpeg to .webp format for ~30-50% size reduction. Use: npx @squoosh/cli --webp '{quality:82}' public/*.jpg */
+
 const HERO_TITLE = "Welcome to Vivante Air Charters";
 const HERO_SUBTITLE = "Every Journey, Refined With Precision.";
 
@@ -302,7 +304,8 @@ const LandingPage = () => {
               src="/logo.1.png"
               alt="Vivante Logo"
               style={{ height: "60px", width: "60px", marginRight: "12px", transform: "scale(1.4)" }}
-              loading="lazy"
+              fetchPriority="high"
+              decoding="async"
             />
             <span className="fw-bold text-white fs-4">Vivante Air Charters</span>
           </Link>

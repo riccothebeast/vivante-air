@@ -56,10 +56,16 @@ router.get('/', verifyToken, async (req, res) => {
         let bookings;
         if (req.user.role === 'admin') {
             // Admin sees all bookings, sorted by newest
-            bookings = await Booking.find().populate('user', 'email').sort({ createdAt: -1 });
+            bookings = await Booking.find()
+                .populate('user', 'email')
+                .sort({ createdAt: -1 })
+                .lean();
         } else {
             // User sees own bookings
-            bookings = await Booking.find({ user: req.user.id }).sort({ createdAt: -1 });
+            bookings = await Booking.find({ user: req.user.id })
+                .sort({ createdAt: -1 })
+                .select('firstName lastName email phone date returnDate aircraft passengers serviceType message status createdAt')
+                .lean();
         }
         res.json(bookings);
     } catch (error) {

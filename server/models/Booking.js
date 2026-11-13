@@ -54,4 +54,8 @@ const bookingSchema = new mongoose.Schema({
     }
 });
 
+// Compound indexes for frequent admin queries
+bookingSchema.index({ status: 1, createdAt: -1 });
+bookingSchema.index({ user: 1, status: 1 });
+
 module.exports = mongoose.model('Booking', bookingSchema);
